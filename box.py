@@ -1,11 +1,13 @@
 from ball import *
 
-from random import choice
+from itertools import product
+
+import numpy as np
 
 
 class Box:
 
-    balls: dict[Smooth, dict[Color, list[Ball]]]
+    balls: dict[Smooth, dict[Color, list[int]] | np.ndarray]
 
     def __init__(self, balls: list[Ball]):
 
@@ -23,9 +25,16 @@ class Box:
         }
 
         for ball in balls:
-            self.balls[ball["smooth"]][ball["color"]].append(ball)
+            self.balls[ball["smooth"]][ball["color"]].append(ball["id"])
+
+        for smooth, color in product(smooths, colors):
+            self.balls[smooth][color] = np.array(self.balls[smooth][color])
 
     def get_ball(self) -> Ball:
         smooth = choice_smooth()
         color = choice_color()
-        return choice(self.balls[smooth][color])
+        return {
+            "id": np.random.choice(self.balls[smooth][color]),
+            "smooth": smooth,
+            "color": color
+        }

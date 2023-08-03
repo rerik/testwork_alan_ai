@@ -13,8 +13,8 @@ def stats(balls: list[Ball]):
     print(df["color"].value_counts(normalize=True))
 
 
-BALLS = 100
-GETS = 1_000
+BALLS = 1_000_000
+GETS = 10_000_000
 
 if __name__ == '__main__':
 
