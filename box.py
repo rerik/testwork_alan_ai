@@ -1,6 +1,7 @@
 from ball import *
 
 from itertools import product
+from random import randint
 
 import numpy as np
 
@@ -34,7 +35,7 @@ class Box:
         smooth = choice_smooth()
         color = choice_color()
         return {
-            "id": np.random.choice(self.balls[smooth][color]),
+            "id": self.balls[smooth][color][randint(0, len(self.balls[smooth][color])-1)],
             "smooth": smooth,
             "color": color
         }
